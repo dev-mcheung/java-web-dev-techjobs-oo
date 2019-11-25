@@ -30,8 +30,50 @@ public class Job {
         this.coreCompetency = aCoreCompetency;
     }
 
+    private static String emptyString(String aValue) {
+        if (aValue.isEmpty()) {
+            return "Data not available";
+        }
+        return aValue;
+    }
+
+    // toString Method
+    @Override
+    public String toString() {
+        String blankLine = "_______";
+
+        if (this.name == null) {
+            return "ID: _______\n" +
+                    "Name: _______\n" +
+                    "Employer: _______\n" +
+                    "Location: _______\n" +
+                    "Position Type: _______\n" +
+                    "Core Competency: _______\n" +
+                    "OOPS! This job does not seem to exist.";
+        } else {
+            return "ID: " + id + "\n" +
+                    "Name: " + Job.emptyString(this.name) + "\n" +
+                    "Employer: " + Job.emptyString(this.employer.toString()) + "\n" +
+                    "Location: " + Job.emptyString(this.location.toString()) + "\n" +
+                    "Position Type: " + Job.emptyString(this.positionType.toString()) + "\n" +
+                    "Core Competency: " + Job.emptyString(this.coreCompetency.toString());
+        }
+    }
+
     // TODO: Add custom equals and hashCode methods. Consider two Job objects "equal" when their id fields
     //  match.
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Job job = (Job) o;
+        return id == job.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
 
     // TODO: Add getters for each field EXCEPT nextId. Add setters for each field EXCEPT nextID
     //  and id.
@@ -78,18 +120,5 @@ public class Job {
 
     public int getId() {
         return id;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        Job job = (Job) o;
-        return id == job.id;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
     }
 }
